@@ -4,9 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var cookieSession = require('cookie-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+
+var passport = require('passport');
+var passportConfig = require('./config/passport');
 
 var app = express();
 
@@ -16,11 +19,23 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
+
+// Session Config
+app.use(cookieSession({
+  key: 'Chat Session',
+  secret: 'Hella secret',
+}));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Google Oauth Config
+app.set(passportConfig(passport));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);

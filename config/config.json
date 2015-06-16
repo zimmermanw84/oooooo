@@ -1,0 +1,20 @@
+{
+  "development": {
+    "username": "root",
+    "password": "chewy",
+    "database": "ooo",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "host": "us-cdbr-iron-east-02.cleardb.net",
+    "dialect": "mysql"
+  }
+}
