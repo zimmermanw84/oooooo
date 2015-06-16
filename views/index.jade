@@ -3,3 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+
+  form(action='/auth/google', method='post')
+    button(class='btn btn-danger')
+      span(class='fa fa-google-plus') Sign in with Google
+
