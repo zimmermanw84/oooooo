@@ -12,6 +12,7 @@
     "cookie-session": "^1.1.0",
     "debug": "~2.1.1",
     "express": "^4.12.4",
+    "express-session": "^1.11.3",
     "grunt": "^0.4.5",
     "jade": "~1.9.2",
     "morgan": "^1.5.3",

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= username
+  ul
+    li
+      h2= email
+    li
+      h2= googleID
+    li
+      a(href='#{img}') Img Link
+
+  form(action='/users/logout', method='post')
+    input(type='submit', value='Log Out')

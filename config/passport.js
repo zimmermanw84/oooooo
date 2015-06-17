@@ -1,6 +1,6 @@
 // load all the things we need
-
 // load up the user model
+var models = require('../models');
 var User = require('../models/user');
 
 // load the auth variables
@@ -15,9 +15,14 @@ module.exports = function(passport) {
 
     // // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
-        });
+        models.user.findOne({ where: { id: id } })
+            .then(function(user) {
+                done(null, user);
+            })
+            .error(function(err) {
+                console.log("ERROR: ", err);
+            })
+            // });
     });
 
     // code for login (use('local-login', new LocalStategy))
@@ -28,7 +33,7 @@ module.exports = function(passport) {
     // =========================================================================
     // GOOGLE ==================================================================
     // =========================================================================
-    passport.use(new GoogleStrategy({
+     var gStrategy = new GoogleStrategy({
         clientID : googleAuth.clientID,
         clientSecret : googleAuth.clientSecret,
         callbackURL : googleAuth.callbackURL,
@@ -37,33 +42,31 @@ module.exports = function(passport) {
         // make the code asynchronous
         // User.findOne won't fire until we have all our data back from Google
         process.nextTick(function() {
-
             // try to find the user based on their google id
-            User.findOne({ 'googleID' : profile.id }, function(err, user) {
-                if (err) return done(err);
-
-                if (user) {
-                    // if a user is found, log them in
-                    return done(null, user);
-                } else {
-                    // if the user isn't in our database, create a new user
-                    var newUser = new User({
+            models.user.findOne( { where: { 'googleID' : profile.id } } )
+                .then(function(user) {
+                    // console.log("USER", user.dataValues)
+                    if (user) return done(null, user);
+                    // Fail to find user then create user
+                    var newUser = models.user.create({
                       googleID: profile.id,
                       googleToken: token,
                       username:profile.displayName,
                       email: profile.emails[0].value,// pull the first email
                       img: profile.photos[0].value // store first picture url
+                    }).then(function(user) {
+                        return done(null, user);
+                    }).error(function(error) {
+                        console.log('Something went wrong. Try again');
                     });
+                })
+                .error(function() {
+                    console.log("ERROR:");
+                });
 
-                    // save the user
-                    newUser.save(function(err) {
-                        if (err) throw err;
-                        return done(null, newUser);
-                    });
-                }
-            });
         });
 
-    }));
-
+    });
+// );
+    passport.use(gStrategy);
 };

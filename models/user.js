@@ -26,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
             type: Sequelize.STRING,
             field: 'img',
         },
+
     });
 
     return User;
