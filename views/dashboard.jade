@@ -4,11 +4,14 @@ block content
   h1= username
   ul
     li
-      h2= email
+      h2 Email:
+        = email
     li
-      h2= googleID
+      h2 GoogleID:
+        = googleID
     li
-      a(href='#{img}') Img Link
+      a(href='#{img}')
+        h2 Img Link
 
   form(action='/users/logout', method='post')
     input(type='submit', value='Log Out')
