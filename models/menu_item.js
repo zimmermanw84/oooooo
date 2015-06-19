@@ -40,7 +40,8 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    Menu_item.belongsTo(Menu, {foreignKey: 'menu_id'});
+    // Menu.hasMany(Menu_item, { foreignKey: 'menu_id'});
+    // Menu_item.belongsTo(Menu, {foreignKey: 'menu_id'});
 
     return Menu_item;
 };

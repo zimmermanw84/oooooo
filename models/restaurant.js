@@ -53,6 +53,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     rating: {
       type: Sequelize.STRING,
+    },
+    latitude: {
+      type: Sequelize.STRING,
+    },
+    longitude: {
+      type: Sequelize.STRING,
     }
 
   });

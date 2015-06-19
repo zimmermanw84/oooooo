@@ -1,0 +1,23 @@
+a(class='btn btn-warning', href='/restaurants') Back
+
+ul
+  li
+    h2 Name: #{restaurant.name}
+  li
+    h2 Description: #{restaurant.description}
+  li
+    h2 City: #{restaurant.city}
+  li
+    h2 Phone: #{restaurant.phone_number}
+  li
+    h2 State: #{restaurant.state}
+  li
+    h2 Rating: #{restaurant.rating}
+  li
+    h2 Zipcode: #{restaurant.zipcode}
+  li
+    h2 Address: #{restaurant.address_1}
+  li
+    img(src='#{restaurant.restaurant_img}')
+  li
+    a(href='/restaurants/#{restaurant.restaurant_id}/menus/') MENUS

@@ -4,9 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+// Routes
 var index = require('./routes/index');
 var users = require('./routes/users');
-var session = require('express-session');
+var restaurants = require('./routes/restaurants');
 
 var passport = require('passport');
 var passportConfig = require('./config/passport');
@@ -29,7 +31,7 @@ app.set(passportConfig(passport));
 // Session Config
 app.use(cookieParser());
 app.use(session({
-  secret: 'hillbilly',
+  secret: 'nodemon',
   resave: true,
   saveUninitialized: true
 }));
@@ -39,8 +41,8 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index, users);
-
+app.use('/', index, users, restaurants);
+// app.use('/restaurants', restaurants);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

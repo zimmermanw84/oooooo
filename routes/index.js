@@ -11,6 +11,8 @@ router.get('/', function(req, res, next) {
 router.get('/dashboard', function(req, res, next) {
   if (!req.user) res.redirect('/');
 
+  res.user = req.user.dataValues;
+
   res.render('dashboard', {
     username: req.user.dataValues.username,
     email: req.user.dataValues.email,

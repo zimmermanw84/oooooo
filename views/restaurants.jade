@@ -1,0 +1,8 @@
+a(class='btn btn-warning', href='/dashboard') Back
+
+ul
+  for rest in restaurants
+    li
+      a(href='/restaurants/#{rest.dataValues.restaurant_id}')= rest.name
+  else
+    li NO restaurants FOUND
