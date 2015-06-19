@@ -3,6 +3,6 @@ a(class='btn btn-warning', href='/restaurants/#{restaurant.restaurant_id}') Back
 ul
   for menu in menus
     li
-      a(href='/restaurants/#{restaurant.restaurant_id}/menus/#{menu.dataValues.menu_id}')= menu.dataValues.name
+      a(href='/restaurants/#{restaurant.restaurant_id}/menus/#{menu.dataValues.menu_id}')= menu.name
   else
     h3 NO MENUS

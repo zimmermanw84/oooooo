@@ -1,0 +1,21 @@
+a(class='btn btn-warning', href='/restaurants/#{restaurant_id}/menus') Back
+
+ul
+  for item in menu_items
+    li
+      h4 NAME: #{item.dataValues.name}
+    li
+      h4 DESCRIPTION: #{item.dataValues.description}
+    li
+      h4 EDIT DESCRIPTION:
+        form(action='/restaurants/#{restaurant_id}/menus/#{menu_id}/menu_items/#{item.dataValues.menu_item_id}', method='post')
+          input(type='text' name='description')
+          input(type='submit' value='edit')
+    li
+      h4 PRICE: #{item.dataValues.price}
+    li
+      h4 RATING: #{item.dataValues.rating}
+    li
+      img(src='#{item.dataValues.item_img}')
+  else
+    NO MENU ITEMS

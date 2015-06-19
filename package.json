@@ -8,6 +8,7 @@
   "dependencies": {
     "body-parser": "~1.12.0",
     "bootstrap": "^3.3.5",
+    "chance": "^0.7.5",
     "cookie-parser": "~1.3.4",
     "cookie-session": "^1.1.0",
     "debug": "~2.1.1",
@@ -15,6 +16,7 @@
     "express-session": "^1.11.3",
     "grunt": "^0.4.5",
     "jade": "~1.9.2",
+    "locu": "0.0.4",
     "morgan": "^1.5.3",
     "mysql": "^2.7.0",
     "passport": "^0.2.2",
