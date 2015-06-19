@@ -40,7 +40,6 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-
     var Menu_type = sequelize.define('menu_type', {
 
         menu_type_id: {
@@ -53,9 +52,8 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    // Menu.hasMany(Menu_type, {foreignKey: 'menu_id'});
-    // Menu_type.hasMany(Menu, {foreignKey: 'menu_type_id'});
-    // Menu_type.belongsTo(Menu, {foreignKey: 'menu_id'});
+    Menu.hasMany(Menu_item, { foreignKey: 'menu_id'});
+    Menu_type.hasMany(Menu, { foreignKey: 'menu_type_id'});
 
     return Menu_type;
 };

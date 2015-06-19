@@ -100,8 +100,9 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Menu.belongsTo(Restaurant, {foreignKey: 'restaurant_id'});
-    // Menu.hasMany(Menu_item, { foreignKey: 'menu_id'});
-    // Menu_type.belongsTo(Menu, { foreignKey: 'menu_id'});
+    Menu.hasMany(Menu_item, { foreignKey: 'menu_id'});
+    Menu_type.hasMany(Menu, { foreignKey: 'menu_type_id'});
+
 
     return Menu;
 };
