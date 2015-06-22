@@ -155,5 +155,5 @@ var createMenu = function(restaurants) {
 // });
 
 // 4
-// seedMenuItems();
+seedMenuItems();
 
