@@ -7,8 +7,6 @@ var basename  = path.basename(module.filename);
 var env       = process.env.NODE_ENV || 'development';
 var config    = require(__dirname + '/../config/config.json')[env];
 var db        = {};
-var Menu      = require('./menu');
-var Restaurant= require('./restaurant');
 
 if ( env === "development" || env === "test" ) {
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
