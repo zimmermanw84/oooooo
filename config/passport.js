@@ -1,7 +1,5 @@
 // load all the things we need
-// load up the user model
 var models = require('../models');
-var User = require('../models/user');
 
 // load the auth variables
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -13,7 +11,7 @@ module.exports = function(passport) {
         done(null, user.id);
     });
 
-    // // used to deserialize the user
+    // used to deserialize the user
     passport.deserializeUser(function(id, done) {
         models.user.findOne({ where: { id: id } })
             .then(function(user) {
@@ -22,7 +20,6 @@ module.exports = function(passport) {
             .error(function(err) {
                 console.log("ERROR: ", err);
             })
-            // });
     });
 
     // code for login (use('local-login', new LocalStategy))
@@ -33,7 +30,7 @@ module.exports = function(passport) {
     // =========================================================================
     // GOOGLE ==================================================================
     // =========================================================================
-     var gStrategy = new GoogleStrategy({
+    var gStrategy = new GoogleStrategy({
         clientID : googleAuth.clientID,
         clientSecret : googleAuth.clientSecret,
         callbackURL : googleAuth.callbackURL,
@@ -45,7 +42,6 @@ module.exports = function(passport) {
             // try to find the user based on their google id
             models.user.findOne( { where: { 'googleID' : profile.id } } )
                 .then(function(user) {
-                    // console.log("USER", user.dataValues)
                     if (user) return done(null, user);
                     // Fail to find user then create user
                     var newUser = models.user.create({
@@ -67,6 +63,5 @@ module.exports = function(passport) {
         });
 
     });
-// );
     passport.use(gStrategy);
 };
