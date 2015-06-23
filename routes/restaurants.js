@@ -58,7 +58,6 @@ router.post('/restaurants/:restaurant_id/menus/:menu_id/menu_items/:id', functio
 
   var menu_item = models.menu_item.findOne({ where: { menu_item_id: req.params.id } })
     .then(function(item) {
-
       item.updateAttributes({
         description: req.body.description
       })
@@ -67,11 +66,11 @@ router.post('/restaurants/:restaurant_id/menus/:menu_id/menu_items/:id', functio
       })
       .error(function(err) {
         res.send("FAILED TO UPDATE");
-      })
+      });
     })
     .error(function(err) {
       res.send("FAILED TO FIND MENU ITEM");
-    })
+    });
 });
 
 
