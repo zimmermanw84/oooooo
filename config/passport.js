@@ -30,7 +30,7 @@ module.exports = function(passport) {
     // =========================================================================
     // GOOGLE ==================================================================
     // =========================================================================
-     var gStrategy = new GoogleStrategy({
+    var gStrategy = new GoogleStrategy({
         clientID : googleAuth.clientID,
         clientSecret : googleAuth.clientSecret,
         callbackURL : googleAuth.callbackURL,
