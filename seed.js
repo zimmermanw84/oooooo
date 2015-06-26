@@ -1,6 +1,7 @@
 var yelpConfig = require("./config/auth").yelpAuth;
 var locuConfig = require("./config/auth").locuAuth;
 var models = require('./models');
+var request = require('request');
 var http = require('http');
 // FAKE DATA
 var chance = require('chance').Chance();
@@ -17,9 +18,16 @@ var yelp = require("yelp").createClient({
 
 // var locuOptions = {
 //   host: 'https://api.locu.com',
-//   path: '/v1_0/venue/search/?name=Super%20Dupper&locality=San%20Francisco&api_key=' + locuConfig.apiKey,
+//   path: '/v1_0/venue/search/?name=PianoFight&locality=San%20Francisco&api_key=' + locuConfig.apiKey,
 //   method: 'post'
 // };
+
+request(
+  'https://api.locu.com/v2/venue/search/?locality=San%20Francisco&api_key=' + locuConfig.apiKey,
+  function(err, res, body) {
+    if (err) throw(err)
+    console.log(res, body);
+  });
 
 // var req = http.request(locuOptions, function(res) {
 //   // var str = '';

@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var sessionStore = require("connect-mongo")(session);
 // Routes
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -32,11 +33,35 @@ app.set(passportConfig(passport));
 
 // Session Config
 app.use(cookieParser());
+
+// var sessionStore = new sessionStore({
+//     host: 'localhost',
+//     port: 27017,
+//     db: 'oooSession',
+//     stringify: false,
+//     maxAge: 60 * 60 * 1000,
+//     autoRemoveExpiredSession: true
+// });
+
 app.use(session({
-  secret: 'nodemon',
-  resave: true,
-  saveUninitialized: true
+    cookie: { maxAge: 1000*60*2 } ,
+    secret: "session secret" ,
+    resave: true,
+    saveUninitialized: true,
+    store: new sessionStore({
+      host: 'localhost',
+      port: 27017,
+      db: 'oooSession',
+      stringify: false,
+      autoRemoveExpiredSession: true
+    })
 }));
+
+// app.use(session({
+//   secret: 'nodemon',
+//   resave: true,
+//   saveUninitialized: true
+// }));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -44,7 +69,7 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index, users, restaurants);
-// app.use('/restaurants', restaurants);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
