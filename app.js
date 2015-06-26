@@ -5,6 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var sessionStore = require("connect-mongo")(session);
+var https = require('https');
+var fs = require('fs');
+
+var models = require("./models");
+
 // Routes
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -15,13 +21,16 @@ var passportConfig = require('./config/passport');
 
 var db = require('./models/index');
 
-var app = express();
+var app = express({
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem'),
+});
+
+var port = process.env.PORT || '3000'
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,22 +38,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Google Oauth Config
 app.set(passportConfig(passport));
 
-
 // Session Config
 app.use(cookieParser());
+
 app.use(session({
-  secret: 'nodemon',
-  resave: true,
-  saveUninitialized: true
+    cookie: { maxAge: 1000*60*2 } ,
+    secret: "session secret" ,
+    resave: true,
+    saveUninitialized: true,
+    store: new sessionStore({
+      host: 'localhost',
+      port: 27017,
+      db: 'oooSession',
+      stringify: false,
+      autoRemoveExpiredSession: true
+    })
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', index, users, restaurants);
-// app.use('/restaurants', restaurants);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -76,4 +91,18 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = app;
+// Self Signed certs
+var privateKey = fs.readFileSync( 'key.pem' );
+var certificate = fs.readFileSync( 'cert.pem' );
+
+
+// Start HTTPS SERVER
+models.sequelize.sync().then(function () {
+  https.createServer({
+      key: privateKey,
+      cert: certificate,
+      passphrase: 'chewy',
+  }, app).listen(port);
+});
+
+

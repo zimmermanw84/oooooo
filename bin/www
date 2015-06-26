@@ -3,89 +3,102 @@
 /**
  * Module dependencies.
  */
+// var express = require('express');
+// var app = require('../app');
+// var debug = require('debug')('oooChallenge:server');
+// var http = require('http');
+// var https = require('https');
+// var models = require("../models");
+// var fs = require('fs');
+// var enforce = require('express-sslify');
+// /**
+//  * Get port from environment and store in Express.
+//  */
 
-var app = require('../app');
-var debug = require('debug')('oooChallenge:server');
-var http = require('http');
-var models = require("../models");
+// var port = normalizePort(process.env.PORT || '3000');
+// app.set('port', port);
 
-/**
- * Get port from environment and store in Express.
- */
+// /**
+//  * Create HTTP server.
+//  */
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
 
-/**
- * Create HTTP server.
- */
 
-var server = http.createServer(app);
+// app.use(enforce.HTTPS(true));
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-models.sequelize.sync().then(function () {
-  server.listen(port);
-  server.on('error', onError);
-  server.on('listening', onListening);
-});
-/**
- * Normalize a port into a number, string, or false.
- */
+// // var server = express.createServer({
+// //   key: fs.readFileSync('./key.pem'),
+// //   cert: fs.readFileSync('./cert.pem'),
 
-function normalizePort(val) {
-  var port = parseInt(val, 10);
+// // }, app);
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
+// // var server = app.createServer(app);
+// // var server = http.createServer(app);
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
+// /**
+//  * Listen on provided port, on all network interfaces.
+//  */
+// models.sequelize.sync().then(function () {
+//   app.listen(port);
+//   // server.on('error', onError);
+//   // server.on('listening', onListening);
+// });
+// /**
+//  * Normalize a port into a number, string, or false.
+//  */
 
-  return false;
-}
+// function normalizePort(val) {
+//   var port = parseInt(val, 10);
 
-/**
- * Event listener for HTTP server "error" event.
- */
+//   if (isNaN(port)) {
+//     // named pipe
+//     return val;
+//   }
 
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+//   if (port >= 0) {
+//     // port number
+//     return port;
+//   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+//   return false;
+// }
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
+// /**
+//  * Event listener for HTTP server "error" event.
+//  */
 
-/**
- * Event listener for HTTP server "listening" event.
- */
+// function onError(error) {
+//   if (error.syscall !== 'listen') {
+//     throw error;
+//   }
 
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
+//   var bind = typeof port === 'string'
+//     ? 'Pipe ' + port
+//     : 'Port ' + port;
+
+//   // handle specific listen errors with friendly messages
+//   switch (error.code) {
+//     case 'EACCES':
+//       console.error(bind + ' requires elevated privileges');
+//       process.exit(1);
+//       break;
+//     case 'EADDRINUSE':
+//       console.error(bind + ' is already in use');
+//       process.exit(1);
+//       break;
+//     default:
+//       throw error;
+//   }
+// }
+
+// /**
+//  * Event listener for HTTP server "listening" event.
+//  */
+
+// function onListening() {
+//   var addr = server.address();
+//   var bind = typeof addr === 'string'
+//     ? 'pipe ' + addr
+//     : 'port ' + addr.port;
+//   debug('Listening on ' + bind);
+// }
