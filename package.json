@@ -16,6 +16,7 @@
     "express": "^4.12.4",
     "express-session": "^1.11.3",
     "grunt": "^0.4.5",
+    "http-proxy": "^1.11.1",
     "jade": "~1.9.2",
     "locu": "0.0.4",
     "morgan": "^1.5.3",
