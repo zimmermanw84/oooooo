@@ -8,7 +8,6 @@ var session = require('express-session');
 var sessionStore = require("connect-mongo")(session);
 var https = require('https');
 var fs = require('fs');
-// var multiParty = require('connect-multiparty')();
 
 var models = require("./models");
 
@@ -59,10 +58,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// // Use connect multiparty for s3 file stream integration
-// app.use(multiParty);
-
-// Routes
 app.use('/', index, users, restaurants);
 
 // catch 404 and forward to error handler

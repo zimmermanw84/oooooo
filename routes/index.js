@@ -5,8 +5,8 @@ var fs = require('fs');
 var multiParty = require('connect-multiparty')();
 var S3FS = require('s3fs');
 var s3fsObj = new S3FS('saltys3testing', {
-  accessKeyId: "AKIAIZQ5USVWN6RC5HKA",
-  secretAccessKey: "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"
+  accessKeyId: "",
+  secretAccessKey: ""
 });
 
 // Use connect multiparty for s3 file stream integration
