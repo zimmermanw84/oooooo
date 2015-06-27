@@ -8,6 +8,7 @@ var session = require('express-session');
 var sessionStore = require("connect-mongo")(session);
 var https = require('https');
 var fs = require('fs');
+// var multiParty = require('connect-multiparty')();
 
 var models = require("./models");
 
@@ -21,12 +22,10 @@ var passportConfig = require('./config/passport');
 
 var db = require('./models/index');
 
-var app = express({
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem'),
-});
+var port = process.env.PORT || '3000';
 
-var port = process.env.PORT || '3000'
+var app = express();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -41,6 +40,7 @@ app.set(passportConfig(passport));
 // Session Config
 app.use(cookieParser());
 
+// MONGO Session Store
 app.use(session({
     cookie: { maxAge: 1000*60*2 } ,
     secret: "session secret" ,
@@ -58,6 +58,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// // Use connect multiparty for s3 file stream integration
+// app.use(multiParty);
+
+// Routes
 app.use('/', index, users, restaurants);
 
 // catch 404 and forward to error handler

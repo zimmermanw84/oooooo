@@ -1,6 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var cookieParser = require('cookie-parser');
+
+var fs = require('fs');
+var multiParty = require('connect-multiparty')();
+var S3FS = require('s3fs');
+var s3fsObj = new S3FS('saltys3testing', {
+  accessKeyId: "AKIAIZQ5USVWN6RC5HKA",
+  secretAccessKey: "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"
+});
+
+// Use connect multiparty for s3 file stream integration
+router.use(multiParty);
 
 /* GET home page. */
 
@@ -21,5 +31,12 @@ router.get('/dashboard', function(req, res, next) {
   });
 });
 
+router.get('/media', function(req, res) {
+  // TODO: Get Route to show uploaded media
+});
+
+router.post('/media_upload', function(req, res) {
+
+});
 
 module.exports = router;
