@@ -2,15 +2,19 @@ var express = require('express');
 var router = express.Router();
 
 var fs = require('fs');
-var multiParty = require('connect-multiparty')();
+var multiParty = require('connect-multiparty'),
+    multipartyMiddle = multiParty();
+
+var awsAuth = require("../config/auth").awsAuth;
+
 var S3FS = require('s3fs');
 var s3fsObj = new S3FS('saltys3testing', {
-  accessKeyId: "",
-  secretAccessKey: ""
+  accessKeyId: awsAuth.accessKeyId,
+  secretAccessKey: awsAuth.secretAccessKey
 });
 
 // Use connect multiparty for s3 file stream integration
-router.use(multiParty);
+// router.use(multipartyMiddle);
 
 /* GET home page. */
 
@@ -35,8 +39,12 @@ router.get('/media', function(req, res) {
   // TODO: Get Route to show uploaded media
 });
 
-router.post('/media_upload', function(req, res) {
+router.post('/media_upload', multipartyMiddle,function(req, res) {
+  // console.log("REQUEST BODY", req.files);
+  s3fsObj.writeFile(req.body['upload'], 'FUCK YOU!').then(function() {
 
+    res.redirect('/dashboard');
+  });
 });
 
 module.exports = router;

@@ -8,6 +8,9 @@ var session = require('express-session');
 var sessionStore = require("connect-mongo")(session);
 var https = require('https');
 var fs = require('fs');
+var router = express.Router();
+var multiParty = require('connect-multiparty'),
+    multipartyMiddle = multiParty();
 
 var models = require("./models");
 
@@ -57,6 +60,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// router.use(multipartyMiddle);
 
 app.use('/', index, users, restaurants);
 
