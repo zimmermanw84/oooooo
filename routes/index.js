@@ -44,6 +44,8 @@ router.get('/media', function(req, res) {
 });
 
 router.post('/media_upload', multipartyMiddle, function(req, res) {
+  if(!req.files.upload) res.send("YOU MUST ENTER A IMAGE");
+
   var file = req.files.upload;
   var stream = fs.createReadStream(file.path);
   var userId = req.user.dataValues.id;

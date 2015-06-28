@@ -30,5 +30,5 @@ block content
 
   h4 Upload Image
   form(action='/media_upload', enctype="multipart/form-data", method='post')
-    input(type='file', name='upload')
+    input(type='file', name='upload', required=true)
     input(type='submit')
