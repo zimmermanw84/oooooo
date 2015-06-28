@@ -31,9 +31,9 @@ router.get('/dashboard', function(req, res, next) {
   });
 });
 
-// Should break this out to it's own media file
+// TODO: BREAK THESE OUT into seporate media routes
+
 router.get('/media', function(req, res) {
-  // TODO: Get Route to show uploaded media
   var images = models.image.findAll({ include: [models.user] })
     .then(function(imgs) {
       res.render('media', { imgs: imgs });
@@ -41,6 +41,21 @@ router.get('/media', function(req, res) {
     .error(function(err) {
       console.log(err);
     });
+});
+
+router.get('/media/:id', function(req, res) {
+  var image = models.image.findOne({
+    where: { image_id: req.params.id },
+    include: [models.user]
+  })
+  .then(function(img) {
+    console.log("IMG", img)
+    res.render('image', { img: img });
+  })
+  .error(function(err) {
+    console.log(err);
+  })
+
 });
 
 router.post('/media_upload', multipartyMiddle, function(req, res) {

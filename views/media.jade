@@ -7,6 +7,8 @@ block content
   ul
     for img in imgs
       li
-        img(src='#{img.link}', style='max-width:5em;max-height:5em;')
+        a(href='/media/#{img.image_id}')
+          img(src='#{img.link}', style='max-width:5em;max-height:5em;')
+
         h4 Uploaded By: &nbsp;
           = img.user.username

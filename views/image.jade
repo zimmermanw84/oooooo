@@ -1,0 +1,9 @@
+extends layout
+
+block content
+
+  a(class='btn btn-warning', href='/dashboard', style='margin-bottom: 2em;') Back
+
+  h1= img.user.username
+
+  img(src='#{img.link}')
