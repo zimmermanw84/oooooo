@@ -8,9 +8,6 @@ var session = require('express-session');
 var sessionStore = require("connect-mongo")(session);
 var https = require('https');
 var fs = require('fs');
-var router = express.Router();
-var multiParty = require('connect-multiparty'),
-    multipartyMiddle = multiParty();
 
 var models = require("./models");
 
@@ -21,8 +18,6 @@ var restaurants = require('./routes/restaurants');
 
 var passport = require('passport');
 var passportConfig = require('./config/passport');
-
-var db = require('./models/index');
 
 var port = process.env.PORT || '3000';
 

@@ -21,6 +21,7 @@
     "jade": "~1.9.2",
     "locu": "0.0.4",
     "morgan": "^1.5.3",
+    "multiparty": "^4.1.2",
     "mysql": "^2.7.0",
     "passport": "^0.2.2",
     "passport-google-oauth": "^0.2.0",
