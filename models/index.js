@@ -35,8 +35,10 @@ Object.keys(db).forEach(function(modelName) {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db['menu'].belongsTo(db['restaurant'], {foreignKey: 'restaurant_id'});
+db['user'].hasMany(db['image'], {foreignKey: 'user_id'});
+db['image'].belongsTo(db['user'], {foreignKey: 'user_id'});
 db['menu'].hasMany(db['menu_item'], { foreignKey: 'menu_id'});
+db['menu'].belongsTo(db['restaurant'], {foreignKey: 'restaurant_id'});
 db['restaurant'].hasMany(db['menu'], {foreignKey: 'restaurant_id'});
 db['menu_type'].hasMany(db['menu'], { foreignKey: 'menu_type_id'});
 db['menu_item'].belongsTo(db['menu'], {foreignKey: 'menu_id'});

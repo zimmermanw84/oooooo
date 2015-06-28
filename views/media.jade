@@ -1,0 +1,8 @@
+a(class='btn btn-warning', href='/dashboard') Back
+
+ul
+  for img in imgs
+    li
+      img(src='#{img.link}', style='max-width:5em;max-height:5em;')
+      h4 Uploaded By: &nbsp;
+        = img.user.username

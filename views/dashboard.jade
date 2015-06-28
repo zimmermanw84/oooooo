@@ -1,24 +1,34 @@
 extends layout
 
 block content
-  h1= username
-  ul
-    li
-      h2 Email:
-        = email
-    li
-      h2 GoogleID:
-        = googleID
-    li
-      a(href='#{img}')
-        h2 Img Link
-
   form(action='/users/logout', method='post')
     input(type='submit', value='Log Out')
 
+  h2 Google Account Info
+  h3= username
+  ul
+    li
+      h4 Email:
+        = email
+    li
+      h4 GoogleID:
+        = googleID
+    li
+      a(href='#{img}')
+        h4 Img Link
+
+  h2 Restaurants Project
   a(href='/restaurants')
     h3 Restaurants
 
+  h2 Upload and Display images from s3
+  img(src='http://d2gcty1pfxygsh.cloudfront.net/lockeSolo.png')
+
+  h4
+    a(href='/media')
+      View Images
+
+  h4 Upload Image
   form(action='/media_upload', enctype="multipart/form-data", method='post')
     input(type='file', name='upload')
     input(type='submit')
