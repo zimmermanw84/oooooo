@@ -1,8 +1,12 @@
-a(class='btn btn-warning', href='/dashboard') Back
+extends layout
 
-ul
-  for rest in restaurants
-    li
-      a(href='/restaurants/#{rest.dataValues.restaurant_id}')= rest.name
-  else
-    li NO restaurants FOUND
+block content
+
+  a(class='btn btn-warning', href='/dashboard', style='margin-bottom: 2em;') Back
+
+  ul
+    for rest in restaurants
+      li
+        a(href='/restaurants/#{rest.dataValues.restaurant_id}')= rest.name
+    else
+      li NO restaurants FOUND

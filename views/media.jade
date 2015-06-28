@@ -1,8 +1,12 @@
-a(class='btn btn-warning', href='/dashboard') Back
+extends layout
 
-ul
-  for img in imgs
-    li
-      img(src='#{img.link}', style='max-width:5em;max-height:5em;')
-      h4 Uploaded By: &nbsp;
-        = img.user.username
+block content
+
+  a(class='btn btn-warning', href='/dashboard', style='margin-bottom: 2em;') Back
+
+  ul
+    for img in imgs
+      li
+        img(src='#{img.link}', style='max-width:5em;max-height:5em;')
+        h4 Uploaded By: &nbsp;
+          = img.user.username

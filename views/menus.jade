@@ -1,8 +1,12 @@
-a(class='btn btn-warning', href='/restaurants/#{restaurant.restaurant_id}') Back
+extends layout
 
-ul
-  for menu in menus
-    li
-      a(href='/restaurants/#{restaurant.restaurant_id}/menus/#{menu.dataValues.menu_id}')= menu.name
-  else
-    h3 NO MENUS
+block content
+
+  a(class='btn btn-warning', href='/dashboard', style='margin-bottom: 2em;') Back
+
+  ul(style='list-style:none;')
+    for menu in menus
+      li(style='display: inline-block; float: left; margin-right: 1em;')
+        a(href='/restaurants/#{restaurant.restaurant_id}/menus/#{menu.dataValues.menu_id}', class='btn btn-success')= menu.name
+    else
+      h3 NO MENUS
