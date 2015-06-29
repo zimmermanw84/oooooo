@@ -48,7 +48,6 @@ router.get('/restaurants/:restaurant_id/menus/:id', function(req, res, next) {
         menu_id: req.params.id,
         menu_items: menu.dataValues.menu_items
       });
-        // })
     });
 });
 

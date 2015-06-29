@@ -44,17 +44,21 @@ module.exports = function(passport) {
                 .then(function(user) {
                     if (user) return done(null, user);
                     // Fail to find user then create user
-                    var newUser = models.user.create({
-                      googleID: profile.id,
-                      googleToken: token,
-                      username:profile.displayName,
-                      email: profile.emails[0].value,// pull the first email
-                      img: profile.photos[0].value // store first picture url
-                    }).then(function(user) {
+                    if(!user) {
+                        models.user.create({
+                          googleID: profile.id,
+                          googleToken: token,
+                          username:profile.displayName,
+                          email: profile.emails[0].value,// pull the first email
+                          img: profile.photos[0].value // store first picture url
+                        }).then(function(user) {
+                            return done(null, user);
+                        }).error(function(error) {
+                            console.log('Something went wrong. Try again');
+                        });
+                    } else {
                         return done(null, user);
-                    }).error(function(error) {
-                        console.log('Something went wrong. Try again');
-                    });
+                    }
                 })
                 .error(function() {
                     console.log("ERROR:");

@@ -58,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // router.use(multipartyMiddle);
 
-app.use('/', index, users, restaurants);
+app.use('/', restaurants, index, users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

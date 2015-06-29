@@ -49,7 +49,6 @@ router.get('/media/:id', function(req, res) {
     include: [models.user]
   })
   .then(function(img) {
-    console.log("IMG", img)
     res.render('image', { img: img });
   })
   .error(function(err) {
