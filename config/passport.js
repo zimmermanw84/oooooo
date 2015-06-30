@@ -19,7 +19,7 @@ module.exports = function(passport) {
             })
             .error(function(err) {
                 console.log("ERROR: ", err);
-            })
+            });
     });
 
     // code for login (use('local-login', new LocalStategy))

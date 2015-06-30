@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models');
 var fs = require('fs');
-
+var path = require('path');
 var multiParty = require('connect-multiparty'),
     multipartyMiddle = multiParty();
 var awsAuth = require("../config/auth").awsAuth;
@@ -14,11 +14,11 @@ var s3fsObj = new S3FS('saltys3testing/images', {
 
 /* GET home page. */
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.render('index', { title: 'OOO' });
 });
 
-router.get('/dashboard', function(req, res, next) {
+router.get('/dashboard', function(req, res) {
   if (!req.user) res.redirect('/');
 
   res.user = req.user.dataValues;
@@ -29,6 +29,11 @@ router.get('/dashboard', function(req, res, next) {
     googleID: req.user.dataValues.googleID,
     img: req.user.dataValues.img
   });
+});
+
+router.get('/angular-dev', function(req, res) {
+  // Render a single HTML page loaded with All necessary assets
+  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 });
 
 // TODO: BREAK THESE OUT into seporate media routes
